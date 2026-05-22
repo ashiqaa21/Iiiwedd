@@ -74,7 +74,7 @@ export const WaxSeal = ({
               >
                 {/* TEXT */}
                 <span
-                  className="font-cursive text-[2.2rem] text-[#6b5200]
+                  className="font-royal text-[2.2rem] text-[#6b5200]
                   select-none italic leading-none
                   translate-y-[1px] -translate-x-[4px]"
                 >

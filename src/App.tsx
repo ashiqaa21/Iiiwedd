@@ -223,7 +223,7 @@ className="absolute inset-x-6 top-6 bottom-6 bg-white shadow-lg z-20 flex flex-c
                   className="hidden sm:block fill-wedding-gold stroke-none"
                 />
 
-                <span>2026</span>
+                <span className="text-2xl sm:text-7xl md:text-9xl">2026</span>
               </div>
             </motion.div>
           </section>

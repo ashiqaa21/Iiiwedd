@@ -1,11 +1,14 @@
 "use client";
 
 import { Calendar, Clock, MapPin, Music } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 
 export const EventDetails = () => {
-  const [opened, setOpened] = useState(false);
+ const [opened, setOpened] = useState(false);
+const [chapterOpened, setChapterOpened] = useState(false);
+
+const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const ceremonyLocation =
     "https://maps.google.com/?q=Riverside+Estate+Sonoma";
@@ -99,14 +102,62 @@ w-[150px] md:w-[190px]
             </div>
           </div> */}
 
-          <a
-            // href={ceremonyLocation}
-            // target="_blank"
-            rel="noopener noreferrer"
-            className="mt-6 block w-full py-4 bg-[#86712e] text-[#fffdfa] font-serif text-[10px] tracking-[0.4em] uppercase transition-all shadow-md rounded-sm active:scale-[0.98] hover:bg-[#6b5a25]"
-          >
-A New Chapter Begins
-          </a>
+<motion.button
+  onClick={() => setChapterOpened(!chapterOpened)}
+  whileTap={{ scale: 0.97 }}
+  animate={{
+    scale: chapterOpened ? 1.03 : 1,
+  }}
+  transition={{ type: "spring", stiffness: 180 }}
+  className="
+    mt-6
+    w-full
+    py-4
+    bg-[#86712e]
+    text-[#fffdfa]
+    font-serif
+    text-[10px]
+    tracking-[0.4em]
+    uppercase
+    transition-all
+    shadow-md
+    rounded-sm
+    hover:bg-[#6b5a25]
+  "
+>
+  {chapterOpened ? "Close Memories" : "A New Chapter Begins"}
+</motion.button>
+<AnimatePresence>
+  {chapterOpened && (
+    <motion.div
+      initial={{ opacity: 0, height: 0 }}
+      animate={{ opacity: 1, height: "auto" }}
+      exit={{ opacity: 0, height: 0 }}
+      transition={{ duration: 0.6 }}
+      className="overflow-hidden mt-6"
+    >
+<div className="grid grid-cols-2 gap-3 md:grid-cols-3">
+
+  {["/bride.jpg", "/bride.jpg", "/bride.jpg","/bride.jpg"].map((img, index) => (
+    <motion.div
+      key={index}
+      whileHover={{ scale: 1.03 }}
+      whileTap={{ scale: 0.98 }}
+      className="overflow-hidden rounded-2xl cursor-pointer"
+      onClick={() => setSelectedImage(img)}
+    >
+      <img
+        src={img}
+        alt="Couple"
+        className="rounded-2xl object-cover h-50 w-full shadow-lg transition duration-300 hover:brightness-105"
+      />
+    </motion.div>
+  ))}
+
+</div>
+    </motion.div>
+  )}
+</AnimatePresence>
         </motion.div>
       </div>
 
@@ -173,6 +224,37 @@ href="https://www.google.com/maps/place/ISM+Auditorium/@10.9027731,76.1613813,17
   </motion.div>
 
 </div>
+{/* ✨ FULLSCREEN IMAGE GALLERY */}
+<AnimatePresence>
+  {selectedImage && (
+    <motion.div
+      className="fixed inset-0 z-[999] bg-black/90 backdrop-blur-md flex items-center justify-center p-4"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+
+      {/* Close Button */}
+      <button
+        onClick={() => setSelectedImage(null)}
+        className="absolute top-6 right-6 text-white text-4xl z-50 hover:scale-110 transition"
+      >
+        ×
+      </button>
+
+      {/* Image */}
+      <motion.img
+        src={selectedImage}
+        alt="Gallery"
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.8, opacity: 0 }}
+        transition={{ duration: 0.35 }}
+        className="max-w-full max-h-[90vh] rounded-2xl shadow-2xl object-contain"
+      />
+    </motion.div>
+  )}
+</AnimatePresence>
     </section>
   );
 };
