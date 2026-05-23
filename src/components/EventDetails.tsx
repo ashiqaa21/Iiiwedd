@@ -138,7 +138,7 @@ w-[150px] md:w-[190px]
     >
 <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
 
-  {["/bride.jpg", "/bride.jpg", "/bride.jpg","/bride.jpg"].map((img, index) => (
+  {["/c.jpeg", "/co.jpeg", "/cou.jpeg","/coup.jpeg"].map((img, index) => (
     <motion.div
       key={index}
       whileHover={{ scale: 1.03 }}
